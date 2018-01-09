@@ -1,0 +1,24 @@
+<div class="panel panel-default">
+    <div class="panel-heading">Results</div>
+    <table class="table panel-body">
+        <thead class="text-uppercase">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Birth Place</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngIf="!results">
+                <td colspan="4" class="text-muted text-center">results empty</td>
+            </tr>
+            <tr *ngFor="let result of results">
+                <td>{{result.id}}</td>
+                <td>{{result.name}}</td>
+                <td>{{result.gender}}</td>
+                <td>{{result.birthplace}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

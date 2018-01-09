@@ -6,11 +6,15 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './components/app/app.component';
 import { HomeComponent } from './components/home/home.component';
+import { SearchComponent } from './components/search/search.component';
+import { ResultGridComponent } from './components/result-grid/result-grid.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        HomeComponent
+        HomeComponent,
+        SearchComponent,
+        ResultGridComponent
     ],
     imports: [
         CommonModule,
