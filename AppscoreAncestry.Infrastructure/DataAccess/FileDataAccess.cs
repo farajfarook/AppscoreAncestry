@@ -13,18 +13,20 @@ namespace AppscoreAncestry.Infrastructure.DataAccess
     {
         private JObject _jObject;
         private readonly ILogger<FileDataAccess> _logger;
+        private readonly IDataDetail _detail;
 
-        public FileDataAccess(ILogger<FileDataAccess> logger)
+        public FileDataAccess(ILogger<FileDataAccess> logger, IDataDetail detail)
         {
             _logger = logger;
+            _detail = detail;
         }
 
-        public Task LoadAsync(IDataDetail detail)
+        public Task LoadAsync()
         {
-            if (!(detail is FileDataDetail)) throw new DataAccessException("Invalid data access details");
+            if (!(_detail is FileDataDetail)) throw new DataAccessException("Invalid data access details");
             try
             {
-                var fileDetails = (FileDataDetail)detail;
+                var fileDetails = (FileDataDetail)_detail;
                 var content = File.ReadAllText(fileDetails.FileName);
                 var fullRes = new DataResult(content);
                 _jObject = fullRes.GetContent<JObject>();
@@ -37,12 +39,13 @@ namespace AppscoreAncestry.Infrastructure.DataAccess
             }
         }
 
-        public Task<DataResult> FetchAsync(DataRequest request)
+        public async Task<DataResult> FetchAsync(DataRequest request)
         {
+            if (_jObject == null) await LoadAsync();
             try
             {
                 var dataResult = _jObject[request?.DataSetName];
-                return Task.FromResult(new DataResult(dataResult.ToString()));
+                return new DataResult(dataResult.ToString());
             }
             catch (Exception e)
             {
