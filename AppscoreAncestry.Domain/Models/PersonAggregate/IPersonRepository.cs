@@ -7,7 +7,9 @@ using AppscoreAncestry.Domain.Seedwork;
 namespace AppscoreAncestry.Domain.Models.PersonAggregate
 {
     public interface IPersonRepository: IRepository<Person>
-    {
-        Task<Person> GetById(int id);
+    {        
+        Task<Person> GetByIdAsync(int id);
+        Task<IEnumerable<Person>> ListAsync(ISearchModel<Person> search);
+        Task<IEnumerable<Person>> ListAsync();
     }
 }
