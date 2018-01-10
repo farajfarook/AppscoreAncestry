@@ -1,5 +1,12 @@
 <div class="panel panel-default">
-    <div class="panel-heading">Results</div>
+    <div class="panel-heading">
+        <ul class="pagination pull-right" style="margin-top: unset" *ngIf="paginationEnabled()">
+            <li *ngFor="let _ of pages; let pageIndex = index" [ngClass]="{'active': isPageActive(pageIndex)}">
+                <a href="#">{{getPageText(pageIndex)}}</a>
+            </li>
+        </ul>
+        <h4>Results</h4>
+    </div>
     <table class="table panel-body">
         <thead class="text-uppercase">
             <tr>
