@@ -41,8 +41,8 @@ namespace AppscoreAncestry.Infrastructure.DataAccess
         {
             try
             {
-                var dataResult = (string) _jObject[request?.DataSetName];
-                return Task.FromResult(new DataResult(dataResult));
+                var dataResult = _jObject[request?.DataSetName];
+                return Task.FromResult(new DataResult(dataResult.ToString()));
             }
             catch (Exception e)
             {

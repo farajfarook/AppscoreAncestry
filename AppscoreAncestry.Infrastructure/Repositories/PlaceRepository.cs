@@ -10,12 +10,12 @@ namespace AppscoreAncestry.Infrastructure.Repositories
     {
         public Task<Place> GetById(int id)
         {
-            
+            throw new NotImplementedException();
         }
 
         public Task<IEnumerable<Place>> ListAsync()
         {
-            
+            throw new NotImplementedException();
         }
     }
 }
