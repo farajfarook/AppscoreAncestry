@@ -22,11 +22,13 @@ namespace AppscoreAncestry.Domain.Services
         {            
             var people = await _repository.ListAsync();
             var filteredData = people.Where(p =>
-                (p.Name == search.Name || string.IsNullOrEmpty(search.Name))
-                ||
-                (p.Gender == search.Gender.Id || search.Gender == null)
-            ).Skip(search.Skip).Take(search.Take);
-            return filteredData;
+                (p.Name.Contains(search.Name) || string.IsNullOrEmpty(search.Name))
+                &&
+                (p.Gender == search.Gender?.Id || search.Gender == null)
+            );
+            if (search.Skip != null) filteredData = filteredData.Skip(search.Skip ?? 0);
+            if (search.Take != null) filteredData = filteredData.Take(search.Take ?? 10);
+            return filteredData.ToList();
         }
     }
 }

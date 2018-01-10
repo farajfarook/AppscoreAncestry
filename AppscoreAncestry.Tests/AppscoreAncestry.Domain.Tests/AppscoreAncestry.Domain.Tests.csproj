@@ -18,4 +18,13 @@
     <ProjectReference Include="..\..\AppscoreAncestry.Domain\AppscoreAncestry.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Mocks\data_small.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Mocks\invalid_data.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
