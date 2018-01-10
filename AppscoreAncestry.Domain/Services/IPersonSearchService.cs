@@ -6,6 +6,6 @@ namespace AppscoreAncestry.Domain.Services
 {
     public interface IPersonSearchService
     {
-        Task<IEnumerable<Person>> ListAsync(PersonSearch search);
+        Task<IEnumerable<Person>> SearchAsync(PersonSearch search);
     }
 }

@@ -18,14 +18,14 @@ namespace AppscoreAncestry.Domain.Services
             _repository = repository;
         }
 
-        public async Task<IEnumerable<Person>> ListAsync(PersonSearch search)
+        public async Task<IEnumerable<Person>> SearchAsync(PersonSearch search)
         {            
             var people = await _repository.ListAsync();
             var filteredData = people.Where(p =>
                 (p.Name == search.Name || string.IsNullOrEmpty(search.Name))
                 ||
                 (p.Gender == search.Gender.Id || search.Gender == null)
-            );
+            ).Skip(search.Skip).Take(search.Take);
             return filteredData;
         }
     }
