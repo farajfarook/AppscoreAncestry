@@ -7,6 +7,7 @@ namespace AppscoreAncestry.Infrastructure.DataAccess
 {
     public interface IDataAccess
     {
-        Task<IDataResult> FetchAsync(IDataRequest request);
+        Task LoadAsync(IDataDetail detail);
+        Task<DataResult> FetchAsync(DataRequest request);
     }
 }

@@ -2,9 +2,9 @@
 
 namespace AppscoreAncestry.Infrastructure.DataAccess
 {
-    public class FileDataResult : IDataResult
+    public class DataResult
     {
-        public FileDataResult(string content)
+        public DataResult(string content)
         {
             Content = content;
         }

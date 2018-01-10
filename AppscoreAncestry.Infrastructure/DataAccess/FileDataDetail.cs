@@ -1,12 +1,12 @@
 ﻿namespace AppscoreAncestry.Infrastructure.DataAccess
 {
-    public class FileDataRequest : IDataRequest
+    public class FileDataDetail: IDataDetail
     {
         public string FileName { get; }
 
-        public FileDataRequest(string fileName)
+        public FileDataDetail(string filename)
         {
-            FileName = fileName;
+            FileName = filename;
         }
     }
 }

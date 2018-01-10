@@ -14,7 +14,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\AppscoreAncestry.Common\AppscoreAncestry.Common.UnitTest\AppscoreAncestry.Common.UnitTest.csproj" />
     <ProjectReference Include="..\..\AppscoreAncestry.Infrastructure\AppscoreAncestry.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Mocks\data_small.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

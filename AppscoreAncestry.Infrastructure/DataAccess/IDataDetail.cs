@@ -1,7 +1,6 @@
 ﻿namespace AppscoreAncestry.Infrastructure.DataAccess
 {
-    public interface IDataResult
+    public interface IDataDetail
     {
-        
     }
 }
