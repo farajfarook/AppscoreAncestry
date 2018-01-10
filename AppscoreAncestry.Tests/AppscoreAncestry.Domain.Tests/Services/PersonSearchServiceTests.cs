@@ -28,6 +28,25 @@ namespace AppscoreAncestry.Domain.Tests.Services
         }
         
         [Theory]
+        [InlineAutoMoqData(2, 10, 10)]
+        [InlineAutoMoqData(10, 10, 5)]
+        [InlineAutoMoqData(0, 10, 10)]
+        [InlineAutoMoqData(-3, 10, 10)]
+        [InlineAutoMoqData(-3, -1, 15)]
+        public async void SearchAsync_SkipTake_Response(int skip, int take, int count, Mock<IPersonRepository> personRepoMock)
+        {
+            personRepoMock.Setup(m => m.ListAsync()).Returns(Task.FromResult(MockData.GetContent<Person>("people")));
+            var service = new PersonSearchService(personRepoMock.Object);
+            var data = await service.SearchAsync(new PersonSearch()
+            {
+                Name = "Millisent",
+                Skip = skip,
+                Take = take
+            });
+            Assert.Equal(count, data?.Count());
+        }
+        
+        [Theory]
         [AutoMoqData]
         public async void SearchAsync_NameAndGender_Response(Mock<IPersonRepository> personRepoMock)
         {

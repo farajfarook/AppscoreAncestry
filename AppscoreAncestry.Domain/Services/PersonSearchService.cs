@@ -26,9 +26,9 @@ namespace AppscoreAncestry.Domain.Services
                 filteredData = filteredData.Where(m => m.Name.Contains(search.Name));
             if (search.Genders?.Count > 0)
                 filteredData = filteredData.Where(m => search.Genders.Contains(m.PersonGender));
-            if (search.Skip != null) 
+            if (search.Skip > 0) 
                 filteredData = filteredData.Skip(search.Skip ?? 0);
-            if (search.Take != null) 
+            if (search.Take > 0) 
                 filteredData = filteredData.Take(search.Take ?? 10);
             return filteredData.ToList();
         }
