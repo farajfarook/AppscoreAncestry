@@ -5,4 +5,9 @@ import { Component } from '@angular/core';
     templateUrl: './search.component.html'
 })
 export class SearchComponent {
+    advanceSearch: boolean = false;
+    
+    toggleAdvanceSearch(): void {
+        this.advanceSearch = !this.advanceSearch;
+    }
 }

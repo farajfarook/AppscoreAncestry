@@ -11,19 +11,33 @@
         <br/>
         <div class="row">
             <div class="col-md-8">
-                <div>
-                    <span>Gender:&nbsp;&nbsp;</span>
-                    <label class="checkbox-inline">
-                        <input type="checkbox"> Male
-                    </label>
-                    <label class="checkbox-inline">
-                        <input type="checkbox"> Female
-                    </label>
+                <div class="row">
+                    <span class="col-md-2">Gender:</span>
+                    <div class="col-md-10">
+                        <label class="checkbox-inline">
+                            <input type="checkbox"> Male
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox"> Female
+                        </label> 
+                    </div>
+                </div>
+                <div class="row" *ngIf="advanceSearch">
+                    <div class="col-md-12"><hr/></div>
+                    <span class="col-md-2">Direction:</span>
+                    <div class="col-md-10">
+                        <label class="radio-inline">
+                            <input type="radio" checked name="direction"> Ancestors
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="direction"> Decendants
+                        </label>
+                    </div>
                 </div>
             </div>
             <div class="col-md-4">                
                 <div class="text-center">
-                    <a>Advanced search</a>
+                    <button class="btn btn-link" (click)="toggleAdvanceSearch()">Advanced search</button>
                 </div>
             </div>
         </div>
