@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Common\AppscoreAncestry.Common.Domain\AppscoreAncestry.Common.Domain.csproj" />
+    <ProjectReference Include="..\AppscoreAncestry.Common\AppscoreAncestry.Common.Domain\AppscoreAncestry.Common.Domain.csproj" />
   </ItemGroup>
 
 </Project>

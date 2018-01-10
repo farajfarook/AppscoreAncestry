@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AppscoreAncestry.Domain.Seedwork;
+using AppscoreAncestry.Common.Domain;
 
 namespace AppscoreAncestry.Domain.Models.PlaceAggregate
 {

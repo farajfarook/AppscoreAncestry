@@ -1,7 +1,7 @@
 ﻿using AutoFixture.Xunit2;
 using Xunit;
 
-namespace Enbiso.Common.UnitTest.AutoMoq
+namespace AppscoreAncestry.Common.UnitTest
 {
     public class InlineAutoMoqDataAttribute : CompositeDataAttribute
     {

@@ -1,4 +1,4 @@
-﻿namespace AppscoreAncestry.Domain.Seedwork
+﻿namespace AppscoreAncestry.Common.Domain
 {
     public interface IRepository<TModel> where TModel : IRootModel
     {

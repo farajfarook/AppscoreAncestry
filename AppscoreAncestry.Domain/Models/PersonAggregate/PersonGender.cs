@@ -1,4 +1,4 @@
-﻿using AppscoreAncestry.Domain.Seedwork;
+﻿using AppscoreAncestry.Common.Domain;
 
 namespace AppscoreAncestry.Domain.Models.PersonAggregate
 {

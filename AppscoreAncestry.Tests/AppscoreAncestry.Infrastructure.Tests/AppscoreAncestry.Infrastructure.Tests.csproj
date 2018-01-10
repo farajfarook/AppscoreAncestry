@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\AppscoreAncestry.Infrastructure\AppscoreAncestry.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\Common\AppscoreAncestry.Common.UnitTest\AppscoreAncestry.Common.UnitTest.csproj" />
   </ItemGroup>
 
 </Project>

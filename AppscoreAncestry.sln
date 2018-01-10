@@ -3,23 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppscoreAncestry.Web", "AppscoreAncestry.Web\AppscoreAncestry.Web.csproj", "{9FBE0051-82A8-4E71-8F85-542E2F74DB11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppscoreAncestry.Web", "AppscoreAncestry.Web\AppscoreAncestry.Web.csproj", "{9FBE0051-82A8-4E71-8F85-542E2F74DB11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppscoreAncestry.Domain", "AppscoreAncestry.Domain\AppscoreAncestry.Domain.csproj", "{CF35B7CE-B5D2-4B7A-B662-8B677D54DA6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppscoreAncestry.Domain", "AppscoreAncestry.Domain\AppscoreAncestry.Domain.csproj", "{CF35B7CE-B5D2-4B7A-B662-8B677D54DA6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppscoreAncestry.Infrastructure", "AppscoreAncestry.Infrastructure\AppscoreAncestry.Infrastructure.csproj", "{603CBCE8-16A9-43FC-B4C9-E5136A99587A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppscoreAncestry.Infrastructure", "AppscoreAncestry.Infrastructure\AppscoreAncestry.Infrastructure.csproj", "{603CBCE8-16A9-43FC-B4C9-E5136A99587A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C8000414-A4AD-4E85-BFFA-86290630EB12}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppscoreAncestry.Tests", "AppscoreAncestry.Tests", "{C8000414-A4AD-4E85-BFFA-86290630EB12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppscoreAncestry.Domain.Tests", "Tests\AppscoreAncestry.Domain.Tests\AppscoreAncestry.Domain.Tests.csproj", "{F464AD25-C46E-4EF9-9B05-D5E92D5C6F23}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppscoreAncestry.Common", "AppscoreAncestry.Common", "{CC846E09-F153-4E7B-B8AE-9437B33391E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppscoreAncestry.Infrastructure.Tests", "Tests\AppscoreAncestry.Infrastructure.Tests\AppscoreAncestry.Infrastructure.Tests.csproj", "{39564214-773B-4E59-BAD2-F97B0356C84E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppscoreAncestry.Domain.Tests", "AppscoreAncestry.Tests\AppscoreAncestry.Domain.Tests\AppscoreAncestry.Domain.Tests.csproj", "{673E06F1-023E-4D60-BB42-FEDD03C4F408}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{CC846E09-F153-4E7B-B8AE-9437B33391E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppscoreAncestry.Common.Domain", "AppscoreAncestry.Common\AppscoreAncestry.Common.Domain\AppscoreAncestry.Common.Domain.csproj", "{56CCEA66-EADC-45D9-B254-A44AE7BA881E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppscoreAncestry.Common.Domain", "Common\AppscoreAncestry.Common.Domain\AppscoreAncestry.Common.Domain.csproj", "{3FCEDA45-62D7-4D3B-90DF-626F71DC771C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppscoreAncestry.Common.UnitTest", "Common\AppscoreAncestry.Common.UnitTest\AppscoreAncestry.Common.UnitTest.csproj", "{549858CA-ED8E-4B59-AD18-588CC6395775}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppscoreAncestry.Common.UnitTest", "AppscoreAncestry.Common\AppscoreAncestry.Common.UnitTest\AppscoreAncestry.Common.UnitTest.csproj", "{C80E4EA7-C6EF-4B40-862F-5842BA01D362}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,31 +37,26 @@ Global
 		{603CBCE8-16A9-43FC-B4C9-E5136A99587A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{603CBCE8-16A9-43FC-B4C9-E5136A99587A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{603CBCE8-16A9-43FC-B4C9-E5136A99587A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F464AD25-C46E-4EF9-9B05-D5E92D5C6F23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F464AD25-C46E-4EF9-9B05-D5E92D5C6F23}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F464AD25-C46E-4EF9-9B05-D5E92D5C6F23}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F464AD25-C46E-4EF9-9B05-D5E92D5C6F23}.Release|Any CPU.Build.0 = Release|Any CPU
-		{39564214-773B-4E59-BAD2-F97B0356C84E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{39564214-773B-4E59-BAD2-F97B0356C84E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{39564214-773B-4E59-BAD2-F97B0356C84E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{39564214-773B-4E59-BAD2-F97B0356C84E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3FCEDA45-62D7-4D3B-90DF-626F71DC771C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3FCEDA45-62D7-4D3B-90DF-626F71DC771C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3FCEDA45-62D7-4D3B-90DF-626F71DC771C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3FCEDA45-62D7-4D3B-90DF-626F71DC771C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{549858CA-ED8E-4B59-AD18-588CC6395775}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{549858CA-ED8E-4B59-AD18-588CC6395775}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{549858CA-ED8E-4B59-AD18-588CC6395775}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{549858CA-ED8E-4B59-AD18-588CC6395775}.Release|Any CPU.Build.0 = Release|Any CPU
+		{673E06F1-023E-4D60-BB42-FEDD03C4F408}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{673E06F1-023E-4D60-BB42-FEDD03C4F408}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{673E06F1-023E-4D60-BB42-FEDD03C4F408}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{673E06F1-023E-4D60-BB42-FEDD03C4F408}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56CCEA66-EADC-45D9-B254-A44AE7BA881E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56CCEA66-EADC-45D9-B254-A44AE7BA881E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56CCEA66-EADC-45D9-B254-A44AE7BA881E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56CCEA66-EADC-45D9-B254-A44AE7BA881E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C80E4EA7-C6EF-4B40-862F-5842BA01D362}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C80E4EA7-C6EF-4B40-862F-5842BA01D362}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C80E4EA7-C6EF-4B40-862F-5842BA01D362}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C80E4EA7-C6EF-4B40-862F-5842BA01D362}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{F464AD25-C46E-4EF9-9B05-D5E92D5C6F23} = {C8000414-A4AD-4E85-BFFA-86290630EB12}
-		{39564214-773B-4E59-BAD2-F97B0356C84E} = {C8000414-A4AD-4E85-BFFA-86290630EB12}
-		{3FCEDA45-62D7-4D3B-90DF-626F71DC771C} = {CC846E09-F153-4E7B-B8AE-9437B33391E1}
-		{549858CA-ED8E-4B59-AD18-588CC6395775} = {CC846E09-F153-4E7B-B8AE-9437B33391E1}
+		{673E06F1-023E-4D60-BB42-FEDD03C4F408} = {C8000414-A4AD-4E85-BFFA-86290630EB12}
+		{56CCEA66-EADC-45D9-B254-A44AE7BA881E} = {CC846E09-F153-4E7B-B8AE-9437B33391E1}
+		{C80E4EA7-C6EF-4B40-862F-5842BA01D362} = {CC846E09-F153-4E7B-B8AE-9437B33391E1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C7C373F5-31EF-4386-BB77-41E25C66AE30}

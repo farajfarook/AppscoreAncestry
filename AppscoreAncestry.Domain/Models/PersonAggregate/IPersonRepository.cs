@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using AppscoreAncestry.Domain.Seedwork;
+using AppscoreAncestry.Common.Domain;
 
 namespace AppscoreAncestry.Domain.Models.PersonAggregate
 {
