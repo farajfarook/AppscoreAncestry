@@ -22,8 +22,21 @@ namespace AppscoreAncestry.Domain.Services
         {            
             var people = await _repository.ListAsync();
             var filteredData = people;
-            if (!string.IsNullOrEmpty(search.Name)) 
-                filteredData = filteredData.Where(m => m.Name.Contains(search.Name));
+
+            switch (search.Mode)
+            {
+                case PersonSearch.SearchMode.Ancestors:
+                    //@TODO
+                    break;
+                case PersonSearch.SearchMode.Descendants:
+                    //@TODO
+                    break;
+                default:
+                    if (!string.IsNullOrEmpty(search.Name)) 
+                        filteredData = filteredData.Where(m => m.Name.Contains(search.Name));
+                    break;
+            }            
+            
             if (search.Genders?.Count > 0)
                 filteredData = filteredData.Where(m => search.Genders.Contains(m.PersonGender));
             if (search.Skip > 0) 
