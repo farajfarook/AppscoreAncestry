@@ -26,5 +26,41 @@ namespace AppscoreAncestry.Domain.Tests.Services
             });
             Assert.Equal(15, data?.Count());
         }
+        
+        [Theory]
+        [AutoMoqData]
+        public async void SearchAsync_NameAndGender_Response(Mock<IPersonRepository> personRepoMock)
+        {
+            personRepoMock.Setup(m => m.ListAsync()).Returns(Task.FromResult(MockData.GetContent<Person>("people")));
+            var service = new PersonSearchService(personRepoMock.Object);
+            var data = await service.SearchAsync(new PersonSearch()
+            {
+                Name = "Millisent",
+                Genders = new List<PersonGender>()
+                {
+                    PersonGender.Female
+                }
+            });
+            Assert.Equal(6, data?.Count());
+        }
+        
+        [Theory]
+        [AutoMoqData]
+        public async void SearchAsync_NameAndAllGender_Response(Mock<IPersonRepository> personRepoMock)
+        {
+            personRepoMock.Setup(m => m.ListAsync()).Returns(Task.FromResult(MockData.GetContent<Person>("people")));
+            var service = new PersonSearchService(personRepoMock.Object);
+            var data = await service.SearchAsync(new PersonSearch()
+            {
+                Name = "Millisent",
+                Genders = new List<PersonGender>()
+                {
+                    PersonGender.Female,
+                    PersonGender.Male,
+                    PersonGender.Other
+                }
+            });
+            Assert.Equal(15, data?.Count());
+        }
     }
 }
