@@ -6,7 +6,7 @@ namespace AppscoreAncestry.Domain.Models.PlaceAggregate
 {
     public interface IPlaceRepository: IRepository<Place>
     {
-        Task<Place> GetById(int id);
+        Task<Place> GetByIdAsync(int id);
         Task<IEnumerable<Place>> ListAsync();
     }
 }

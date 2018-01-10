@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using AppscoreAncestry.Infrastructure.Exceptions;
+using Newtonsoft.Json;
 
 namespace AppscoreAncestry.Infrastructure.DataAccess
 {
@@ -13,7 +15,14 @@ namespace AppscoreAncestry.Infrastructure.DataAccess
 
         public T GetContent<T>()
         {
-            return JsonConvert.DeserializeObject<T>(Content);
+            try
+            {
+                return JsonConvert.DeserializeObject<T>(Content);
+            }
+            catch (Exception e)
+            {
+                throw new DataAccessException("Not a valid passed type", e);
+            }
         }
     }
 }
