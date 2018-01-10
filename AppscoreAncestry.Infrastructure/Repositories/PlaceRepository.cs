@@ -14,7 +14,7 @@ namespace AppscoreAncestry.Infrastructure.Repositories
         private const string Name = "places";
 
         private readonly IDataAccess _dataAccess;
-        private ILogger<PlaceRepository> _logger;
+        private readonly ILogger<PlaceRepository> _logger;
 
         public PlaceRepository(IDataAccess dataAccess, ILogger<PlaceRepository> logger)
         {
