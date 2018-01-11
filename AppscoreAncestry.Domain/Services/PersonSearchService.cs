@@ -54,8 +54,8 @@ namespace AppscoreAncestry.Domain.Services
 
         private void UpdateWithAncestors(Person person, ref List<Person> ancestors)
         {
-            var mother = (person.MotherId != null) ? _repository.GetByIdAsync(person.MotherId.Value).Result: null;
-            var father = (person.FatherId != null) ? _repository.GetByIdAsync(person.FatherId.Value).Result : null;
+            var mother = (person.MotherId != null) ? _repository.GetByIdAsync(person.MotherId ?? -1).Result: null;
+            var father = (person.FatherId != null) ? _repository.GetByIdAsync(person.FatherId ?? -1).Result : null;
             if (mother != null)
             {
                 ancestors.Add(mother);
