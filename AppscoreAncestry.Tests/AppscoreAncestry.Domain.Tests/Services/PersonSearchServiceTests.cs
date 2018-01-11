@@ -25,7 +25,7 @@ namespace AppscoreAncestry.Domain.Tests.Services
             {
                 Name = "Millisent"
             });
-            Assert.Equal(15, data?.Count());
+            Assert.Equal(15, data.People.Count());
         }
         
         [Theory]
@@ -44,7 +44,7 @@ namespace AppscoreAncestry.Domain.Tests.Services
                 Skip = skip,
                 Take = take
             });
-            Assert.Equal(count, data?.Count());
+            Assert.Equal(count, data.People.Count());
         }
         
         [Theory]
@@ -61,7 +61,7 @@ namespace AppscoreAncestry.Domain.Tests.Services
                     PersonGender.Female
                 }
             });
-            Assert.Equal(6, data?.Count());
+            Assert.Equal(6, data.People.Count());
         }
         
         [Theory]
@@ -80,7 +80,7 @@ namespace AppscoreAncestry.Domain.Tests.Services
                     PersonGender.Other
                 }
             });
-            Assert.Equal(15, data?.Count());
+            Assert.Equal(15, data.People.Count());
         }
 
         [Theory]
@@ -149,7 +149,7 @@ namespace AppscoreAncestry.Domain.Tests.Services
                 }
             };
             var data = await service.SearchAsync(search);
-            Assert.Equal(10, data?.Count());            
+            Assert.Equal(10, data?.People.Count());            
         }
         
         [Theory]
@@ -176,7 +176,7 @@ namespace AppscoreAncestry.Domain.Tests.Services
                 }
             };
             var data = await service.SearchAsync(search);
-            Assert.Equal(2, data?.Count());            
+            Assert.Equal(2, data?.People.Count());            
         }
     }
 }

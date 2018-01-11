@@ -18,7 +18,7 @@ namespace AppscoreAncestry.Domain.Services
             _repository = repository;
         }
 
-        public async Task<IEnumerable<Person>> SearchAsync(PersonSearch search)
+        public async Task<PersonSearchResult> SearchAsync(PersonSearch search)
         {            
             var people = await _repository.ListAsync();
             var currentPerson = people.SingleOrDefault(p => string.Equals(p.Name, search.Name, StringComparison.CurrentCultureIgnoreCase));
@@ -35,14 +35,16 @@ namespace AppscoreAncestry.Domain.Services
                     if (!string.IsNullOrEmpty(search.Name)) 
                         filteredData = people.Where(m => m.Name.Contains(search.Name));
                     break;
-            }            
+            }
+
+            var total = filteredData.Count();
             if (search.Genders?.Count > 0)
                 filteredData = filteredData.Where(m => search.Genders.Contains(m.PersonGender));
             if (search.Skip > 0) 
                 filteredData = filteredData.Skip(search.Skip ?? 0);
             if (search.Take > 0) 
                 filteredData = filteredData.Take(search.Take ?? 10);
-            return filteredData.ToList();
+            return new PersonSearchResult(filteredData.ToList(), total, search.Skip, search.Take);
         }
 
         public IEnumerable<Person> ListAncestors(Person person)
