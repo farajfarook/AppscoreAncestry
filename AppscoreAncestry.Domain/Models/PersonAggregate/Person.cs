@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using AppscoreAncestry.Common.Domain;
+using AppscoreAncestry.Domain.Models.PlaceAggregate;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -18,6 +19,7 @@ namespace AppscoreAncestry.Domain.Models.PersonAggregate
         public int? MotherId { get; set; }
         [JsonProperty("place_id")]
         public int PlaceId { get; set; }
+        public Place Place { get; set; }
         public int Level { get; set; }
         
         public string Gender

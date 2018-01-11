@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AppscoreAncestry.Common.UnitTest;
 using AppscoreAncestry.Domain.Models.PersonAggregate;
+using AppscoreAncestry.Domain.Models.PlaceAggregate;
 using AppscoreAncestry.Domain.Services;
 using AppscoreAncestry.Domain.Tests.Mocks;
 using Moq;
@@ -17,10 +18,11 @@ namespace AppscoreAncestry.Domain.Tests.Services
     {
         [Theory]
         [AutoMoqData]
-        public async void SearchAsync_JustName_Response(Mock<IPersonRepository> personRepoMock)
+        public async void SearchAsync_JustName_Response(Mock<IPersonRepository> personRepoMock,
+            IPlaceRepository placeRepository)
         {
             personRepoMock.Setup(m => m.ListAsync()).Returns(Task.FromResult(MockData.GetContent<Person>("people")));
-            var service = new PersonSearchService(personRepoMock.Object);
+            var service = new PersonSearchService(personRepoMock.Object, placeRepository);
             var data = await service.SearchAsync(new PersonSearch()
             {
                 Name = "Millisent"
@@ -34,10 +36,11 @@ namespace AppscoreAncestry.Domain.Tests.Services
         [InlineAutoMoqData(0, 10, 10)]
         [InlineAutoMoqData(-3, 10, 10)]
         [InlineAutoMoqData(-3, -1, 15)]
-        public async void SearchAsync_SkipTake_Response(int skip, int take, int count, Mock<IPersonRepository> personRepoMock)
+        public async void SearchAsync_SkipTake_Response(int skip, int take, int count,
+            Mock<IPersonRepository> personRepoMock, IPlaceRepository placeRepository)
         {
             personRepoMock.Setup(m => m.ListAsync()).Returns(Task.FromResult(MockData.GetContent<Person>("people")));
-            var service = new PersonSearchService(personRepoMock.Object);
+            var service = new PersonSearchService(personRepoMock.Object, placeRepository);
             var data = await service.SearchAsync(new PersonSearch()
             {
                 Name = "Millisent",
@@ -49,10 +52,11 @@ namespace AppscoreAncestry.Domain.Tests.Services
         
         [Theory]
         [AutoMoqData]
-        public async void SearchAsync_NameAndGender_Response(Mock<IPersonRepository> personRepoMock)
+        public async void SearchAsync_NameAndGender_Response(Mock<IPersonRepository> personRepoMock,
+            IPlaceRepository placeRepository)
         {
             personRepoMock.Setup(m => m.ListAsync()).Returns(Task.FromResult(MockData.GetContent<Person>("people")));
-            var service = new PersonSearchService(personRepoMock.Object);
+            var service = new PersonSearchService(personRepoMock.Object, placeRepository);
             var data = await service.SearchAsync(new PersonSearch()
             {
                 Name = "Millisent",
@@ -66,10 +70,10 @@ namespace AppscoreAncestry.Domain.Tests.Services
         
         [Theory]
         [AutoMoqData]
-        public async void SearchAsync_NameAndAllGender_Response(Mock<IPersonRepository> personRepoMock)
+        public async void SearchAsync_NameAndAllGender_Response(Mock<IPersonRepository> personRepoMock, IPlaceRepository placeRepository)
         {
             personRepoMock.Setup(m => m.ListAsync()).Returns(Task.FromResult(MockData.GetContent<Person>("people")));
-            var service = new PersonSearchService(personRepoMock.Object);
+            var service = new PersonSearchService(personRepoMock.Object, placeRepository);
             var data = await service.SearchAsync(new PersonSearch()
             {
                 Name = "Millisent",
@@ -85,14 +89,14 @@ namespace AppscoreAncestry.Domain.Tests.Services
 
         [Theory]
         [AutoMoqData]
-        public void ListAncenstors_UserIdData_Reponse(Mock<IPersonRepository> personRepoMock)
+        public void ListAncenstors_UserIdData_Reponse(Mock<IPersonRepository> personRepoMock, IPlaceRepository placeRepository)
         {
             personRepoMock.Setup(m => m.ListAsync()).Returns(Task.FromResult(MockData.GetContent<Person>("people")));
             personRepoMock.Setup(m => m.GetByIdAsync(It.Is<int>(n => n == 1 || n == 2))).Returns(Task.FromResult(new Person()
             {
                 Gender = PersonGender.Male.Id
             }));
-            var service = new PersonSearchService(personRepoMock.Object);
+            var service = new PersonSearchService(personRepoMock.Object, placeRepository);
             var person = new Person {MotherId = 1, FatherId = 2};
             var data = service.ListAncestors(person);
             Assert.Equal(2, data?.Count());
@@ -100,13 +104,14 @@ namespace AppscoreAncestry.Domain.Tests.Services
 
         [Theory]
         [AutoMoqData]
-        public void ListDecendants_ValiData_Success(Mock<IPersonRepository> personRepoMock)
+        public void ListDecendants_ValiData_Success(Mock<IPersonRepository> personRepoMock,
+            IPlaceRepository placeRepository)
         {
             IEnumerable<Person> people1 = new List<Person>{(new Person() { Id = 10 })};
             IEnumerable<Person> people2 = new List<Person>{(new Person())};            
             personRepoMock.Setup(m => m.ListChildrenAsync(It.Is<int>(n => n == 15))).Returns(Task.FromResult(people1));
             personRepoMock.Setup(m => m.ListChildrenAsync(It.Is<int>(n => n == 10))).Returns(Task.FromResult(people2));
-            var service = new PersonSearchService(personRepoMock.Object);
+            var service = new PersonSearchService(personRepoMock.Object, placeRepository);
             var person = new Person { Id = 15 };
             var data = service.ListDescendants(person);
             Assert.Equal(2, data?.Count());
@@ -114,13 +119,14 @@ namespace AppscoreAncestry.Domain.Tests.Services
 
         [Theory]
         [AutoMoqData]
-        public void ListDecendants_InvalidData_Empty(Mock<IPersonRepository> personRepoMock)
+        public void ListDecendants_InvalidData_Empty(Mock<IPersonRepository> personRepoMock,
+            IPlaceRepository placeRepository)
         {
             IEnumerable<Person> people1 = new List<Person> { (new Person() { Id = -1 }) };
             IEnumerable<Person> people2 = new List<Person> { (new Person()) };
             personRepoMock.Setup(m => m.ListChildrenAsync(It.Is<int>(n => n == 1))).Returns(Task.FromResult(people1));
             personRepoMock.Setup(m => m.ListChildrenAsync(It.Is<int>(n => n == 10))).Returns(Task.FromResult(people2));
-            var service = new PersonSearchService(personRepoMock.Object);
+            var service = new PersonSearchService(personRepoMock.Object, placeRepository);
             var person = new Person { Id = 15 };
             var data = service.ListDescendants(person);
             Assert.Equal(0, data?.Count());
@@ -129,14 +135,15 @@ namespace AppscoreAncestry.Domain.Tests.Services
 
         [Theory]
         [AutoMoqData]
-        public async void SearchAsync_DecendantsData_Success(Mock<IPersonRepository> personRepoMock)
+        public async void SearchAsync_DecendantsData_Success(Mock<IPersonRepository> personRepoMock,
+            IPlaceRepository placeRepository)
         {
             var people = MockData.GetContent<Person>("people");
             var children = people.Where(p => p.Id <= 10);
             personRepoMock.Setup(m => m.ListAsync()).Returns(Task.FromResult(people));
             personRepoMock.Setup(m => m.ListChildrenAsync(It.Is<int>(n => n == 49))).Returns(Task.FromResult(children));
             
-            var service = new PersonSearchService(personRepoMock.Object);
+            var service = new PersonSearchService(personRepoMock.Object, placeRepository);
             var search = new PersonSearch
             {
                 Mode = PersonSearch.SearchMode.Descendants,
@@ -154,7 +161,8 @@ namespace AppscoreAncestry.Domain.Tests.Services
         
         [Theory]
         [AutoMoqData]
-        public async void SearchAsync_AncestorsData_Success(string name, int count, Mock<IPersonRepository> personRepoMock)
+        public async void SearchAsync_AncestorsData_Success(string name, int count,
+            Mock<IPersonRepository> personRepoMock, IPlaceRepository placeRepository)
         {
             var people = MockData.GetContent<Person>("people");
             personRepoMock.Setup(m => m.ListAsync()).Returns(Task.FromResult(people));
@@ -163,7 +171,7 @@ namespace AppscoreAncestry.Domain.Tests.Services
                 Gender = PersonGender.Male.Id
             }));
            
-            var service = new PersonSearchService(personRepoMock.Object);
+            var service = new PersonSearchService(personRepoMock.Object, placeRepository);
             var search = new PersonSearch
             {
                 Mode = PersonSearch.SearchMode.Ancestors,

@@ -11,12 +11,10 @@ namespace AppscoreAncestry.Web.Controllers
     public class PeopleController: Controller
     {
         private readonly IPersonSearchService _searchService;
-        private readonly IPlaceRepository _placeRepository;
 
-        public PeopleController(IPersonSearchService searchService, IPlaceRepository placeRepository)
+        public PeopleController(IPersonSearchService searchService)
         {
             _searchService = searchService;
-            _placeRepository = placeRepository;
         }
 
         [HttpGet]

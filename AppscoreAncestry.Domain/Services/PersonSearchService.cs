@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 using AppscoreAncestry.Common.Domain;
 using AppscoreAncestry.Domain.Exceptions;
 using AppscoreAncestry.Domain.Models.PersonAggregate;
+using AppscoreAncestry.Domain.Models.PlaceAggregate;
 
 namespace AppscoreAncestry.Domain.Services
 {
     public class PersonSearchService : IPersonSearchService
     {
         private readonly IPersonRepository _repository;
+        private readonly IPlaceRepository _placeRepository;
 
-        public PersonSearchService(IPersonRepository repository)
+        public PersonSearchService(IPersonRepository repository, IPlaceRepository placeRepository)
         {
             _repository = repository;
+            _placeRepository = placeRepository;
         }
 
         public async Task<PersonSearchResult> SearchAsync(PersonSearch search)
@@ -44,7 +47,14 @@ namespace AppscoreAncestry.Domain.Services
                 filteredData = filteredData.Skip(search.Skip ?? 0);
             if (search.Take > 0) 
                 filteredData = filteredData.Take(search.Take ?? 10);
-            return new PersonSearchResult(filteredData.ToList(), total, search.Skip, search.Take);
+
+            var data = filteredData.ToList().Select(d =>
+            {
+                d.Place = _placeRepository.GetByIdAsync(d.PlaceId).Result;
+                return d;
+            }).ToList();
+            
+            return new PersonSearchResult(data, total, search.Skip, search.Take);
         }
 
         public IEnumerable<Person> ListAncestors(Person person)
