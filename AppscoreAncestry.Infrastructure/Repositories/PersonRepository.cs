@@ -47,7 +47,7 @@ namespace AppscoreAncestry.Infrastructure.Repositories
         public async Task<IEnumerable<Person>> ListChildrenAsync(int personId)
         {
             var people = await ListAsync();
-            return people.Where(p => p.MotherId == personId || p.FatherId == personId);
+            return people.Where(p => p.MotherId == personId || p.FatherId == personId).ToList();
         }
     }
 }

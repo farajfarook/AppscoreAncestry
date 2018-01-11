@@ -59,5 +59,19 @@ namespace AppscoreAncestry.Infrastructure.Tests.Repositories
             var person = await repo.GetByIdAsync(1);
             Assert.Equal("Brande Brittne", person.Name);
         }
+
+        [Theory]
+        [InlineAutoMoqData(17, 1)]
+        [InlineAutoMoqData(11, 3)]
+        [InlineAutoMoqData(-1, 0)]
+        [InlineAutoMoqData(0, 0)]
+        public async void ListChildren_WithId_ListChildren(int personId, int count, Mock<IDataAccess> dataAccessMock, ILogger<PersonRepository> logger)
+        {
+            var dataStr = MockData.GetContent("people");
+            dataAccessMock.Setup(_ => _.FetchAsync(It.IsAny<DataRequest>())).Returns(Task.FromResult(new DataResult(dataStr)));
+            var repo = new PersonRepository(dataAccessMock.Object, logger);
+            var data = await repo.ListChildrenAsync(personId);
+            Assert.Equal(count, data.Count());
+        }
     }
 }
