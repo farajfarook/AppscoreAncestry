@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PersonViewModel } from '../../models/PersonViewModel';
+import { Person } from '../../models/Person';
 
 @Component({
     selector: 'result-grid',
@@ -7,13 +7,13 @@ import { PersonViewModel } from '../../models/PersonViewModel';
 })
 export class ResultGridComponent implements OnInit {
 
-    results: PersonViewModel[];
+    results: Person[];
     pages: number[];
     currentPage: number;
 
     ngOnInit(): void {
         this.results = [];
-        this.results.push(new PersonViewModel(1, "Faraj", "Male", "Kandy"));
+        this.results.push(new Person(1, "Faraj", "Male", "Kandy"));
         this.pages = new Array(5);
         this.currentPage = 2;
     }

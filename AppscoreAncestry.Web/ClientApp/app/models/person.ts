@@ -1,4 +1,4 @@
-export class PersonViewModel {
+export class Person {
     
     constructor(
         public id: number,
