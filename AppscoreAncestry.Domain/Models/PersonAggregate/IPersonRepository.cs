@@ -10,5 +10,6 @@ namespace AppscoreAncestry.Domain.Models.PersonAggregate
     {        
         Task<Person> GetByIdAsync(int id);
         Task<IEnumerable<Person>> ListAsync();
+        Task<IEnumerable<Person>> ListChildrenAsync(int personId);
     }
 }

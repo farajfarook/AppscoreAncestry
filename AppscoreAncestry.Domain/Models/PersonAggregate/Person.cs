@@ -10,8 +10,8 @@ namespace AppscoreAncestry.Domain.Models.PersonAggregate
         public int Id { get; set; }
         public string Name { get; set; }
         public PersonGender PersonGender { get; private set; }
-        public int FatherId { get; set; }
-        public int MotherId { get; set; }
+        public int? FatherId { get; set; }
+        public int? MotherId { get; set; }
         public int PlaceId { get; set; }
         public int Level { get; set; }
 
