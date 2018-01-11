@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { PeopleService } from '../../services/people.service';
+import { PersonSearch } from '../../models/person-search';
 
 @Component({
     selector: 'home',
@@ -9,8 +10,9 @@ export class HomeComponent {
 
     constructor(private peopleService: PeopleService) {  }
 
-    onSearch($event: any) {
-        //this.peopleService.search(event.)
-        console.log($event);
+    onSearch($event: PersonSearch) {
+        this.peopleService.search($event).subscribe((response) => {
+            console.log(response);
+        });
     }
 }

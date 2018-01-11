@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { PersonSearch, PersonSearchMode } from '../../models/PersonSearch';
+import { PersonSearch, PersonSearchMode } from '../../models/person-search';
 
 @Component({
     selector: 'search',
@@ -20,13 +20,6 @@ export class SearchComponent {
     }
 
     onClickSearch(): void {
-        let genders = [];
-        if(this.male) { 
-            genders.push("M")
-        }
-        if(this.female) { 
-            genders.push("F")
-        }
         let mode = PersonSearchMode.Default;
         if(this.advanceSearch) {
             if(this.advanceSearchType == 'ancestors') {
@@ -35,6 +28,6 @@ export class SearchComponent {
                 mode = PersonSearchMode.Descendants;
             }
         }
-        this.searchEvent.emit(new PersonSearch(this.name, genders, mode));
+        this.searchEvent.emit(new PersonSearch(this.name, this.male, this.female, mode));
     }
 }

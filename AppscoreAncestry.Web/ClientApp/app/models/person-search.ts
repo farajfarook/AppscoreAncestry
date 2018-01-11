@@ -1,7 +1,8 @@
-export class PersonSearch{
+export class PersonSearch {
     constructor(
         public name: string,
-        public genders: string[],
+        public male: boolean,
+        public female: boolean,
         public mode: PersonSearchMode) {           
     }
 }

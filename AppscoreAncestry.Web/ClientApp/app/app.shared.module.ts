@@ -8,6 +8,7 @@ import { AppComponent } from './components/app/app.component';
 import { HomeComponent } from './components/home/home.component';
 import { SearchComponent } from './components/search/search.component';
 import { ResultGridComponent } from './components/result-grid/result-grid.component';
+import { PeopleService } from './services/people.service';
 
 @NgModule({
     declarations: [
@@ -24,8 +25,9 @@ import { ResultGridComponent } from './components/result-grid/result-grid.compon
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
             { path: '**', redirectTo: 'home' }
-        ])
-    ]
+        ]),
+    ],
+    providers: [ PeopleService ],
 })
 export class AppModuleShared {
 }

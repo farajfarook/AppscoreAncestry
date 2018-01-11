@@ -2,7 +2,7 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-md-8">
-                <input type="text" placeholder="Search Name" class="form-control" />
+                <input type="text" placeholder="Search Name" class="form-control" [(ngModel)]="name"/>
             </div>
             <div class="col-md-4">
                 <button class="btn btn-primary btn-block" (click)="onClickSearch()">Search</button>
@@ -15,10 +15,10 @@
                     <span class="col-md-2">Gender:</span>
                     <div class="col-md-10">
                         <label class="checkbox-inline">
-                            <input type="checkbox"> Male
+                            <input type="checkbox" [(ngModel)]="male"> Male
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox"> Female
+                            <input type="checkbox" [(ngModel)]="female"> Female
                         </label> 
                     </div>
                 </div>
@@ -27,10 +27,10 @@
                     <span class="col-md-2">Direction:</span>
                     <div class="col-md-10">
                         <label class="radio-inline">
-                            <input type="radio" checked name="direction"> Ancestors
+                            <input type="radio" value="ancestors" [(ngModel)]="advanceSearchType" checked name="direction"> Ancestors
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="direction"> Decendants
+                            <input type="radio" value="decendants" [(ngModel)]="advanceSearchType" name="direction"> Decendants
                         </label>
                     </div>
                 </div>
