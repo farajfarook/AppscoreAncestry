@@ -9,12 +9,12 @@ namespace AppscoreAncestry.Domain.Services
         {
             People = people;
             Total = total;
-            Skip = skip;
-            Take = take;
+            Skip = skip ?? 0;
+            Take = take ?? total;
         }
         public IEnumerable<Person> People { get; }
         public int Total { get; }
-        public int? Skip { get; }
-        public int? Take { get; }
+        public int Skip { get; }
+        public int Take { get; }
     }
 }
