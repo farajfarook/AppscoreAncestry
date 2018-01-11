@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using AppscoreAncestry.Domain.Services;
 
 namespace AppscoreAncestry.Web.Models
@@ -12,13 +14,18 @@ namespace AppscoreAncestry.Web.Models
 
         public PersonSearchResultViewModel(PersonSearchResult result)
         {
-         //@TODO   
+            Skip = Skip;
+            Take = Take;
+            Pages = (int)Math.Ceiling(Total / (float)Take);
+            CurrentPage = Pages - (int)Math.Ceiling(Skip / (float)Take);
+            People = result.People.Select(m => new PersonViewModel(m));
+
         }
-        public IEnumerable<PersonViewModel> Data { get; set; }
-        public int Pages { get; set; }
-        public int CurrentPage { get; set; }
-        public int Skip { get; set; }
-        public int Take { get; set; }
-        public int Total { get; set; }
+        public IEnumerable<PersonViewModel> People { get; set; }
+        public int Pages { get; }
+        public int CurrentPage { get; }
+        public int Skip { get; }
+        public int Take { get; }
+        public int Total { get; }
     }
 }

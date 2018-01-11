@@ -9,12 +9,12 @@ namespace AppscoreAncestry.Web.Models
         {
             
         }
-        public PersonViewModel(Person person, Place place)
+        public PersonViewModel(Person person)
         {
             Id = person.Id;
             Name = person.Name;
             Gender = person.PersonGender.Name;
-            BirthPlace = place.Name;
+            BirthPlace = person.Place?.Name;
         }
         public int Id { get; set; }
         public string Name { get; set; }
