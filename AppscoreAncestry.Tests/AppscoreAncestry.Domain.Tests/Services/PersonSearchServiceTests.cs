@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AppscoreAncestry.Common.UnitTest;
+using AppscoreAncestry.Domain.Models;
 using AppscoreAncestry.Domain.Models.PersonAggregate;
 using AppscoreAncestry.Domain.Models.PlaceAggregate;
 using AppscoreAncestry.Domain.Services;
 using AppscoreAncestry.Domain.Tests.Mocks;
+using Microsoft.Extensions.Options;
 using Moq;
 using Xunit;
 using Xunit.Sdk;
@@ -22,7 +24,7 @@ namespace AppscoreAncestry.Domain.Tests.Services
             IPlaceRepository placeRepository)
         {
             personRepoMock.Setup(m => m.ListAsync()).Returns(Task.FromResult(MockData.GetContent<Person>("people")));
-            var service = new PersonSearchService(personRepoMock.Object, placeRepository);
+            var service = new PersonSearchService(personRepoMock.Object, placeRepository, Options.Create(new Settings(){AdvanceSearchLimit = 10}));
             var data = await service.SearchAsync(new PersonSearch()
             {
                 Name = "Millisent"
@@ -40,7 +42,7 @@ namespace AppscoreAncestry.Domain.Tests.Services
             Mock<IPersonRepository> personRepoMock, IPlaceRepository placeRepository)
         {
             personRepoMock.Setup(m => m.ListAsync()).Returns(Task.FromResult(MockData.GetContent<Person>("people")));
-            var service = new PersonSearchService(personRepoMock.Object, placeRepository);
+            var service = new PersonSearchService(personRepoMock.Object, placeRepository, Options.Create(new Settings() { AdvanceSearchLimit = 10 }));
             var data = await service.SearchAsync(new PersonSearch()
             {
                 Name = "Millisent",
@@ -56,7 +58,7 @@ namespace AppscoreAncestry.Domain.Tests.Services
             IPlaceRepository placeRepository)
         {
             personRepoMock.Setup(m => m.ListAsync()).Returns(Task.FromResult(MockData.GetContent<Person>("people")));
-            var service = new PersonSearchService(personRepoMock.Object, placeRepository);
+            var service = new PersonSearchService(personRepoMock.Object, placeRepository, Options.Create(new Settings() { AdvanceSearchLimit = 10 }));
             var data = await service.SearchAsync(new PersonSearch()
             {
                 Name = "Millisent",
@@ -73,7 +75,7 @@ namespace AppscoreAncestry.Domain.Tests.Services
         public async void SearchAsync_NameAndAllGender_Response(Mock<IPersonRepository> personRepoMock, IPlaceRepository placeRepository)
         {
             personRepoMock.Setup(m => m.ListAsync()).Returns(Task.FromResult(MockData.GetContent<Person>("people")));
-            var service = new PersonSearchService(personRepoMock.Object, placeRepository);
+            var service = new PersonSearchService(personRepoMock.Object, placeRepository, Options.Create(new Settings() { AdvanceSearchLimit = 10 }));
             var data = await service.SearchAsync(new PersonSearch()
             {
                 Name = "Millisent",
@@ -95,7 +97,7 @@ namespace AppscoreAncestry.Domain.Tests.Services
         public async void SearchAsync_NameAndAllGenderWithTakeSkip_Response(Mock<IPersonRepository> personRepoMock, IPlaceRepository placeRepository)
         {
             personRepoMock.Setup(m => m.ListAsync()).Returns(Task.FromResult(MockData.GetContent<Person>("people")));
-            var service = new PersonSearchService(personRepoMock.Object, placeRepository);
+            var service = new PersonSearchService(personRepoMock.Object, placeRepository, Options.Create(new Settings() { AdvanceSearchLimit = 10 }));
             var data = await service.SearchAsync(new PersonSearch()
             {
                 Name = "Millisent",
@@ -123,7 +125,7 @@ namespace AppscoreAncestry.Domain.Tests.Services
             {
                 Gender = PersonGender.Male.Id
             }));
-            var service = new PersonSearchService(personRepoMock.Object, placeRepository);
+            var service = new PersonSearchService(personRepoMock.Object, placeRepository, Options.Create(new Settings() { AdvanceSearchLimit = 10 }));
             var person = new Person {MotherId = 1, FatherId = 2};
             var data = service.ListAncestors(person);
             Assert.Equal(2, data?.Count());
@@ -138,7 +140,7 @@ namespace AppscoreAncestry.Domain.Tests.Services
             IEnumerable<Person> people2 = new List<Person>{(new Person())};            
             personRepoMock.Setup(m => m.ListChildrenAsync(It.Is<int>(n => n == 15))).Returns(Task.FromResult(people1));
             personRepoMock.Setup(m => m.ListChildrenAsync(It.Is<int>(n => n == 10))).Returns(Task.FromResult(people2));
-            var service = new PersonSearchService(personRepoMock.Object, placeRepository);
+            var service = new PersonSearchService(personRepoMock.Object, placeRepository, Options.Create(new Settings() { AdvanceSearchLimit = 10 }));
             var person = new Person { Id = 15 };
             var data = service.ListDescendants(person);
             Assert.Equal(2, data?.Count());
@@ -153,7 +155,7 @@ namespace AppscoreAncestry.Domain.Tests.Services
             IEnumerable<Person> people2 = new List<Person> { (new Person()) };
             personRepoMock.Setup(m => m.ListChildrenAsync(It.Is<int>(n => n == 1))).Returns(Task.FromResult(people1));
             personRepoMock.Setup(m => m.ListChildrenAsync(It.Is<int>(n => n == 10))).Returns(Task.FromResult(people2));
-            var service = new PersonSearchService(personRepoMock.Object, placeRepository);
+            var service = new PersonSearchService(personRepoMock.Object, placeRepository, Options.Create(new Settings() { AdvanceSearchLimit = 10 }));
             var person = new Person { Id = 15 };
             var data = service.ListDescendants(person);
             Assert.Equal(0, data?.Count());
@@ -170,7 +172,7 @@ namespace AppscoreAncestry.Domain.Tests.Services
             personRepoMock.Setup(m => m.ListAsync()).Returns(Task.FromResult(people));
             personRepoMock.Setup(m => m.ListChildrenAsync(It.Is<int>(n => n == 49))).Returns(Task.FromResult(children));
             
-            var service = new PersonSearchService(personRepoMock.Object, placeRepository);
+            var service = new PersonSearchService(personRepoMock.Object, placeRepository, Options.Create(new Settings() { AdvanceSearchLimit = 10 }));
             var search = new PersonSearch
             {
                 Mode = PersonSearch.SearchMode.Descendants,
@@ -199,7 +201,7 @@ namespace AppscoreAncestry.Domain.Tests.Services
                 Gender = PersonGender.Male.Id
             }));
            
-            var service = new PersonSearchService(personRepoMock.Object, placeRepository);
+            var service = new PersonSearchService(personRepoMock.Object, placeRepository, Options.Create(new Settings() { AdvanceSearchLimit = 10 }));
             var search = new PersonSearch
             {
                 Mode = PersonSearch.SearchMode.Ancestors,
