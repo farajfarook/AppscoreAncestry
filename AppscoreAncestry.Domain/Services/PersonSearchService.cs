@@ -35,8 +35,7 @@ namespace AppscoreAncestry.Domain.Services
                     filteredData = ListDescendants(currentPerson);
                     break;
                 default:
-                    if (!string.IsNullOrEmpty(search.Name)) 
-                        filteredData = people.Where(m => m.Name.Contains(search.Name));
+                    filteredData = !string.IsNullOrEmpty(search.Name) ? people.Where(m => m.Name.Contains(search.Name)) : people;
                     break;
             }
 

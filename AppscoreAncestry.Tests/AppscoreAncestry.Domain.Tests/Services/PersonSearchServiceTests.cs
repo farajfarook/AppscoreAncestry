@@ -85,6 +85,33 @@ namespace AppscoreAncestry.Domain.Tests.Services
                 }
             });
             Assert.Equal(15, data.People.Count());
+            Assert.Equal(15, data.Total);
+            Assert.Equal(15, data.Take);
+            Assert.Equal(0, data.Skip);
+        }
+
+        [Theory]
+        [AutoMoqData]
+        public async void SearchAsync_NameAndAllGenderWithTakeSkip_Response(Mock<IPersonRepository> personRepoMock, IPlaceRepository placeRepository)
+        {
+            personRepoMock.Setup(m => m.ListAsync()).Returns(Task.FromResult(MockData.GetContent<Person>("people")));
+            var service = new PersonSearchService(personRepoMock.Object, placeRepository);
+            var data = await service.SearchAsync(new PersonSearch()
+            {
+                Name = "Millisent",
+                Genders = new List<PersonGender>()
+                {
+                    PersonGender.Female,
+                    PersonGender.Male,
+                    PersonGender.Other
+                },
+                Take = 10,
+                Skip = 10
+            });
+            Assert.Equal(5, data.People.Count());
+            Assert.Equal(15, data.Total);
+            Assert.Equal(10, data.Take);
+            Assert.Equal(10, data.Skip);
         }
 
         [Theory]
@@ -156,7 +183,8 @@ namespace AppscoreAncestry.Domain.Tests.Services
                 }
             };
             var data = await service.SearchAsync(search);
-            Assert.Equal(10, data?.People.Count());            
+            Assert.Equal(10, data?.People.Count());
+            Assert.Equal(10, data?.Total);
         }
         
         [Theory]
