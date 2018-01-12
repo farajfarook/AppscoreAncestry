@@ -1,35 +1,40 @@
-<div class="text-muted text-right">Showing {{results.take}} of {{results.total}} results</div>
+<div class="text-muted text-right" *ngIf="!workingFlag">
+    Showing {{results.take}} of {{results.total}} in {{results.pages}} pages
+</div>
 <div class="panel panel-default">
     <div class="panel-heading">
         <ul class="pagination pull-right" style="margin-top: unset" *ngIf="paginationEnabled()">
-            <li *ngFor="let _ of getPagesArray(); let pageIndex = index" [ngClass]="{'active': isPageActive(pageIndex)}">
-                <a (click)="onClickPage(pageIndex)">{{getPageText(pageIndex)}}</a>
+            <li *ngFor="let _ of getPagesArray(); let pageIndex = index" 
+                [ngClass]="{'active': isPageActive(pageIndex), 'disabled': (workingFlag && !isPageActive(pageIndex))}">
+                <a (click)="onClickPage(pageIndex)">{{getPageNumber(pageIndex)}}</a>
             </li>
         </ul>
         <h4>Results</h4>
     </div>
-    <table class="table panel-body">
-        <thead class="text-uppercase">
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Gender</th>
-                <th>Birth Place</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngIf="workingFlag">
-                <td colspan="4" class="text-muted text-center">Loading...</td>
-            </tr>
-            <tr *ngIf="!results.people && !workingFlag">
-                <td colspan="4" class="text-muted text-center">Results Empty :|</td>
-            </tr>
-            <tr *ngFor="let person of results.people">
-                <td>{{person.id}}</td>
-                <td>{{person.name}}</td>
-                <td>{{person.gender}}</td>
-                <td>{{person.birthPlace}}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="panel panel-body">
+        <div class="text-muted text-center" *ngIf="workingFlag">
+            Loading...
+        </div>
+        <table class="table panel-body" *ngIf="!workingFlag">
+            <thead class="text-uppercase">
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Birth Place</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngIf="results.people.length == 0">
+                    <td colspan="4" class="text-muted text-center">Results Empty</td>
+                </tr>
+                <tr *ngFor="let person of results.people">
+                    <td>{{person.id}}</td>
+                    <td>{{person.name}}</td>
+                    <td>{{person.gender}}</td>
+                    <td>{{person.birthPlace}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

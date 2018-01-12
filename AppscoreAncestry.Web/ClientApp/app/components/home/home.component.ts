@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PeopleService } from '../../services/people.service';
 import { PersonSearch } from '../../models/person-search';
 import { PersonSearchResult } from '../../models/person-search-result';
@@ -7,12 +7,17 @@ import { PersonSearchResult } from '../../models/person-search-result';
     selector: 'home',
     templateUrl: './home.component.html'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
+    
     workingFlag: boolean = false;
     results: PersonSearchResult = new PersonSearchResult();
-    currentSearch: PersonSearch;
+    currentSearch: PersonSearch = new PersonSearch();
 
     constructor(private peopleService: PeopleService) {  }
+
+    ngOnInit(): void {
+        this.loadData();
+    }
 
     onSearch($event: PersonSearch) {
         this.currentSearch = $event;
@@ -25,8 +30,7 @@ export class HomeComponent {
     }
 
     private loadData(){
-        this.workingFlag = true;
-        this.results = new PersonSearchResult();
+        this.workingFlag = true;        
         this.peopleService.search(this.currentSearch).subscribe((response) => {
             this.results = response;
             this.workingFlag = false;
