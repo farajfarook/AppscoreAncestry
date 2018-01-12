@@ -191,8 +191,7 @@ namespace AppscoreAncestry.Domain.Tests.Services
         
         [Theory]
         [AutoMoqData]
-        public async void SearchAsync_AncestorsData_Success(string name, int count,
-            Mock<IPersonRepository> personRepoMock, IPlaceRepository placeRepository)
+        public async void SearchAsync_AncestorsData_Success(Mock<IPersonRepository> personRepoMock, IPlaceRepository placeRepository)
         {
             var people = MockData.GetContent<Person>("people");
             personRepoMock.Setup(m => m.ListAsync()).Returns(Task.FromResult(people));
