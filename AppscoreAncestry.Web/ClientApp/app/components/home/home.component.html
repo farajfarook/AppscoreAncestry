@@ -1,2 +1,2 @@
-<search (searchEvent)="onSearch($event)"></search>
-<result-grid></result-grid>
+<search (searchEvent)="onSearch($event)" [workingFlag] = "workingFlag"></search>
+<result-grid [results]="results" [workingFlag] = "workingFlag" (pageChange)="onPageChange($event)"></result-grid>

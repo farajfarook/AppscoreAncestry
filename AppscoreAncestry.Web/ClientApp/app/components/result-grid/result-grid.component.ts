@@ -1,32 +1,49 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Person } from '../../models/Person';
+import { PersonSearchResult } from '../../models/person-search-result';
 
 @Component({
     selector: 'result-grid',
     templateUrl: './result-grid.component.html'
 })
-export class ResultGridComponent implements OnInit {
+export class ResultGridComponent{
 
-    results: Person[];
-    pages: number[];
-    currentPage: number;
+    @Input()
+    results: PersonSearchResult;
 
-    ngOnInit(): void {
-        this.results = [];
-        this.results.push(new Person(1, "Faraj", "Male", "Kandy"));
-        this.pages = new Array(5);
-        this.currentPage = 2;
-    }
+    @Input()
+    workingFlag: boolean;
+
+    @Output() 
+    pageChange = new EventEmitter();
     
     paginationEnabled(): boolean {
-        return this.pages.length > 0;
+        return this.results.pages > 0;
+    }
+
+    getPagesArray(): number[] {
+        if(this.results.pages <= 10){
+            return Array(this.results.pages);
+        } else {
+            return Array(10);
+        }
     }
      
     isPageActive(pageIndex: number): boolean{
-        return this.currentPage == (pageIndex + 1);
+        if(this.results.currentPage <= 10){
+            return this.results.currentPage == (pageIndex + 1);
+        } else {
+            return (this.results.currentPage%10) == (pageIndex + 1);
+        }
     }
     
     getPageText(pageIndex: number): string {
-        return (pageIndex + 1).toString();
+        let pageBase = Math.floor(this.results.currentPage / 10);
+        return (pageIndex + pageBase + 1).toString();
+    }
+
+    onClickPage(pageIndex: number): void {
+        let pageBase = Math.floor(this.results.currentPage / 10);
+        this.pageChange.emit(pageIndex + pageBase + 1);
     }
 }

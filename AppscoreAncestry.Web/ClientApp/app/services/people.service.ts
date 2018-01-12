@@ -17,6 +17,8 @@ export class PeopleService {
         params.set('name', search.name);
         params.set('male', search.male ? "true" : "false");
         params.set('female', search.female ? "true" : "false");
+        params.set('page', search.page.toString());
+        params.set('pagesize', search.pagesize.toString());
 
         let requestOptions = new RequestOptions();
         requestOptions.params = params;

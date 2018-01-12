@@ -18,7 +18,7 @@ namespace AppscoreAncestry.Web.Models
             Take = result.Take;
             Total = result.Total;
             Pages = (int)Math.Ceiling(Total / (float)Take);
-            CurrentPage = Pages - (int)Math.Ceiling(Skip / (float)Take);
+            CurrentPage = (int)Math.Floor(Skip / (float)Take) + 1;
             People = result.People.Select(m => new PersonViewModel(m));
 
         }

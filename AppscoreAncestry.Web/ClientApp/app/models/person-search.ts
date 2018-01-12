@@ -3,7 +3,9 @@ export class PersonSearch {
         public name: string,
         public male: boolean,
         public female: boolean,
-        public mode: PersonSearchMode) {           
+        public mode: PersonSearchMode,
+        public page: number = 1,
+        public pagesize: number = 10) {           
     }
 }
 

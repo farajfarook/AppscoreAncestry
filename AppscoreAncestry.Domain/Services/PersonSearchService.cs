@@ -38,10 +38,11 @@ namespace AppscoreAncestry.Domain.Services
                     filteredData = !string.IsNullOrEmpty(search.Name) ? people.Where(m => m.Name.Contains(search.Name)) : people;
                     break;
             }
-
-            var total = filteredData.Count();
             if (search.Genders?.Count > 0)
                 filteredData = filteredData.Where(m => search.Genders.Contains(m.PersonGender));
+
+            var total = filteredData.Count();
+
             if (search.Skip > 0) 
                 filteredData = filteredData.Skip(search.Skip ?? 0);
             if (search.Take > 0) 

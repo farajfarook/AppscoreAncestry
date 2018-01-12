@@ -1,8 +1,9 @@
+<div class="text-muted text-right">Showing {{results.take}} of {{results.total}} results</div>
 <div class="panel panel-default">
     <div class="panel-heading">
         <ul class="pagination pull-right" style="margin-top: unset" *ngIf="paginationEnabled()">
-            <li *ngFor="let _ of pages; let pageIndex = index" [ngClass]="{'active': isPageActive(pageIndex)}">
-                <a href="#">{{getPageText(pageIndex)}}</a>
+            <li *ngFor="let _ of getPagesArray(); let pageIndex = index" [ngClass]="{'active': isPageActive(pageIndex)}">
+                <a (click)="onClickPage(pageIndex)">{{getPageText(pageIndex)}}</a>
             </li>
         </ul>
         <h4>Results</h4>
@@ -17,14 +18,17 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngIf="!results">
-                <td colspan="4" class="text-muted text-center">results empty</td>
+            <tr *ngIf="workingFlag">
+                <td colspan="4" class="text-muted text-center">Loading...</td>
             </tr>
-            <tr *ngFor="let result of results">
-                <td>{{result.id}}</td>
-                <td>{{result.name}}</td>
-                <td>{{result.gender}}</td>
-                <td>{{result.birthplace}}</td>
+            <tr *ngIf="!results.people && !workingFlag">
+                <td colspan="4" class="text-muted text-center">Results Empty :|</td>
+            </tr>
+            <tr *ngFor="let person of results.people">
+                <td>{{person.id}}</td>
+                <td>{{person.name}}</td>
+                <td>{{person.gender}}</td>
+                <td>{{person.birthPlace}}</td>
             </tr>
         </tbody>
     </table>

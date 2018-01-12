@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { PersonSearch, PersonSearchMode } from '../../models/person-search';
 
 @Component({
@@ -7,8 +7,12 @@ import { PersonSearch, PersonSearchMode } from '../../models/person-search';
 })
 export class SearchComponent {
 
-    @Output() searchEvent = new EventEmitter();
+    @Output() 
+    searchEvent = new EventEmitter();
     
+    @Input()
+    workingFlag: boolean;
+
     advanceSearch: boolean = false;
     name: string;
     male: boolean;
