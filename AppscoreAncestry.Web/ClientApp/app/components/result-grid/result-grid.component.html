@@ -1,5 +1,6 @@
-<div class="text-muted text-right" *ngIf="!workingFlag">
-    Showing {{results.take}} of {{results.total}} in {{results.pages}} pages
+<div class="text-muted text-right">
+    <span *ngIf="!workingFlag">Showing {{results.take}} of {{results.total}} in {{results.pages}} pages</span>
+    <span *ngIf="workingFlag">calculating...</span>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading">
