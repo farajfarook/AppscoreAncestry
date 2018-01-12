@@ -1,6 +1,10 @@
 language: csharp
 mono: none
 dotnet: 2.0.0
+install:
+  - cd ./AppscoreAncestry.Web/
+  - npm install
+  - cd ../
 script:
   - dotnet restore
   - dotnet build 
