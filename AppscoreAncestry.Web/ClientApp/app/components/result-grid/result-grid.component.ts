@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Person } from '../../models/Person';
+import { Person } from '../../models/person';
 import { PersonSearchResult } from '../../models/person-search-result';
 
 @Component({
