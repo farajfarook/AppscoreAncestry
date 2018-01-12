@@ -14,8 +14,9 @@ namespace AppscoreAncestry.Web.Models
 
         public PersonSearchResultViewModel(PersonSearchResult result)
         {
-            Skip = Skip;
-            Take = Take;
+            Skip = result.Skip;
+            Take = result.Take;
+            Total = result.Total;
             Pages = (int)Math.Ceiling(Total / (float)Take);
             CurrentPage = Pages - (int)Math.Ceiling(Skip / (float)Take);
             People = result.People.Select(m => new PersonViewModel(m));

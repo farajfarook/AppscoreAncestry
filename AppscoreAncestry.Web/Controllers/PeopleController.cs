@@ -20,14 +20,9 @@ namespace AppscoreAncestry.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(string name, bool male, bool female, PersonSearch.SearchMode mode)
+        public async Task<IActionResult> Index(string name, bool male, bool female, PersonSearch.SearchMode mode, uint page = 1, uint pagesize = 10)
         {
-            var search = new PersonSearch()
-            {
-                Name = name,
-                Genders = new List<PersonGender>(),
-                Mode = mode
-            };
+            var search = new PersonSearch(name, mode, page, pagesize);
             if (male) search.Genders.Add(PersonGender.Male);
             if (female) search.Genders.Add(PersonGender.Female);
             var result = await _searchService.SearchAsync(search);
