@@ -10,7 +10,7 @@ namespace AppscoreAncestry.Domain.Services
             People = people;
             Total = total;
             Skip = skip ?? 0;
-            Take = take ?? total;
+            Take = (int) ((take == null || take > total) ? total: take);
         }
         public IEnumerable<Person> People { get; }
         public int Total { get; }
