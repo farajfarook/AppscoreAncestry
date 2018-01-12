@@ -1,12 +1,22 @@
-﻿namespace AppscoreAncestry.Infrastructure.DataAccess
+﻿using AppscoreAncestry.Domain.Models;
+using AppscoreAncestry.Infrastructure.Config;
+using Microsoft.Extensions.Options;
+
+namespace AppscoreAncestry.Infrastructure.DataAccess
 {
     public class FileDataDetail: IDataDetail
     {
         public string FileName { get; }
 
-        public FileDataDetail(string filename)
+        public FileDataDetail(IOptions<Settings> options)
         {
-            FileName = filename;
+            var settings = options.Value;
+            FileName = settings.DataConnectionString;
+        }
+
+        internal FileDataDetail(string fileName)
+        {
+            FileName = fileName;
         }
     }
 }

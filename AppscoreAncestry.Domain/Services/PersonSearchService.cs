@@ -5,8 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using AppscoreAncestry.Common.Domain;
 using AppscoreAncestry.Domain.Exceptions;
+using AppscoreAncestry.Domain.Models;
 using AppscoreAncestry.Domain.Models.PersonAggregate;
 using AppscoreAncestry.Domain.Models.PlaceAggregate;
+using Microsoft.Extensions.Options;
 
 namespace AppscoreAncestry.Domain.Services
 {
@@ -14,25 +16,29 @@ namespace AppscoreAncestry.Domain.Services
     {
         private readonly IPersonRepository _repository;
         private readonly IPlaceRepository _placeRepository;
+        private readonly int _advanceSearchLimit;
 
-        public PersonSearchService(IPersonRepository repository, IPlaceRepository placeRepository)
+        public PersonSearchService(IPersonRepository repository, IPlaceRepository placeRepository, IOptions<Settings> options)
         {
             _repository = repository;
             _placeRepository = placeRepository;
+            _advanceSearchLimit = options.Value.AdvanceSearchLimit;
         }
 
         public async Task<PersonSearchResult> SearchAsync(PersonSearch search)
         {            
             var people = await _repository.ListAsync();
-            var currentPerson = people.SingleOrDefault(p => string.Equals(p.Name, search.Name, StringComparison.CurrentCultureIgnoreCase));
+            var currentPerson = people.FirstOrDefault(p => string.Equals(p.Name, search.Name, StringComparison.CurrentCultureIgnoreCase));
             IEnumerable<Person> filteredData = new List<Person>();
             switch (search.Mode)
             {
                 case PersonSearch.SearchMode.Ancestors:
                     filteredData = ListAncestors(currentPerson);
+                    filteredData = filteredData.Take(10);
                     break;
                 case PersonSearch.SearchMode.Descendants:
                     filteredData = ListDescendants(currentPerson);
+                    filteredData = filteredData.Take(10);
                     break;
                 default:
                     filteredData = !string.IsNullOrEmpty(search.Name) ? people.Where(m => m.Name.ToLower().Contains(search.Name.ToLower())) : people;
@@ -60,41 +66,41 @@ namespace AppscoreAncestry.Domain.Services
         public IEnumerable<Person> ListAncestors(Person person)
         {
             var ancestors = new List<Person>();
-            UpdateWithAncestors(person, ref ancestors);
+            if (person != null) UpdateWithAncestors(person, ref ancestors);
             return ancestors;
         }
 
         private void UpdateWithAncestors(Person person, ref List<Person> ancestors)
         {
-            var mother = (person.MotherId != null) ? _repository.GetByIdAsync(person.MotherId ?? -1).Result: null;
+            if (ancestors.Count > _advanceSearchLimit) return;
+
+            var mother = (person.MotherId != null) ? _repository.GetByIdAsync(person.MotherId ?? -1).Result : null;
             var father = (person.FatherId != null) ? _repository.GetByIdAsync(person.FatherId ?? -1).Result : null;
-            if (mother != null)
-            {
-                ancestors.Add(mother);
-                UpdateWithAncestors(mother, ref ancestors);
-            }
-            if (father != null)
-            {
-                ancestors.Add(father);
-                UpdateWithAncestors(father, ref ancestors);
-            }
+
+            if (mother != null) ancestors.Add(mother);
+            if (father != null) ancestors.Add(father);
+
+            if (mother != null) UpdateWithAncestors(mother, ref ancestors);
+            if (father != null) UpdateWithAncestors(father, ref ancestors);
         }
 
         public IEnumerable<Person> ListDescendants(Person person)
-        {
+        { 
             var descendants = new List<Person>();
-            UpdateWithDescendants(person, ref descendants);
+            if (person != null) UpdateWithDescendants(person, ref descendants);
             return descendants;
         }
 
         private void UpdateWithDescendants(Person person, ref List<Person> descendants)
         {
+            if (descendants.Count > _advanceSearchLimit) return;
+
             var children = _repository.ListChildrenAsync(person.Id).Result;
             descendants.AddRange(children);
             foreach (var child in children)
             {
                 UpdateWithDescendants(child, ref descendants);
-            }            
+            }
         }
     }
 }
